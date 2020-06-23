@@ -3,6 +3,8 @@ import React, { Fragment } from 'react';
 
 import useWeatherForecast from './state/useWeatherForecast';
 
+import { Flex, Box } from '../../atoms';
+
 import LocationAndDate from './components/LocationAndDate';
 import SelectedTimeStatus from './components/SelectedTimeStatus';
 import StatusIcon from './components/StatusIcon';
@@ -17,8 +19,8 @@ export default function Forecast() {
   }
 
   return (
-    <ForecastContainer>
-      <HeaderContainer>
+    <Flex column minWidth="200px" maxWidth="800px">
+      <Flex padding="1rem">
         <StatusContainer>
           <StatusIcon />
           <SelectedTimeStatus />
@@ -27,29 +29,14 @@ export default function Forecast() {
         <InfoContainer>
           <LocationAndDate />
         </InfoContainer>
-      </HeaderContainer>
+      </Flex>
 
       <TimeScaleContainer>
         <TimeScale />
       </TimeScaleContainer>
-    </ForecastContainer>
+    </Flex>
   );
 }
-
-const ForecastContainer = styled.div`
-  min-width: 200px;
-  max-width: 800px;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-
-  padding: 1rem;
-`;
 
 const StatusContainer = styled.div`
   display: flex;
