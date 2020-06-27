@@ -49,6 +49,12 @@ module.exports = {
 
     'no-warning-comments': 'off',
 
+    'no-ternary': 'off',
+
+    'no-undefined': 'off',
+
+    'no-use-before-define': 'off',
+
     // React
     'react/jsx-no-literals': 'off',
 
@@ -62,9 +68,28 @@ module.exports = {
 
     'react/jsx-fragments': ['error', 'element'],
 
+    'react/jsx-max-depth': 'off',
+
+    'react/jsx-max-props-per-line': 'off',
+
+    'react/jsx-sort-props': 'off',
+
+    'react/jsx-no-useless-fragment': 'off',
+
     // TypeScript
     '@typescript-eslint/explicit-function-return-type': 'off',
 
     '@typescript-eslint/no-use-before-define': 'off',
+
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+
+  overrides: {
+    files: ['*.tsx'],
+    rules: {
+      'max-lines-per-function': ['warn', 100],
+    },
   },
 };

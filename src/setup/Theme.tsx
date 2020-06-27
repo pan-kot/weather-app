@@ -14,6 +14,8 @@ export default function Theme({ children }: TThemeProps) {
 const theme: TTheme = {
   color: {
     background: '#262A59',
+    'fg-primary': '#FFFFFF',
+    'fg-secondary': '#A8AABD',
   },
   breakpoints: {
     sm: '40em',

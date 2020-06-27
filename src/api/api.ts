@@ -1,14 +1,13 @@
 import useAxios from 'axios-hooks';
 
 const appid = getEnv('REACT_APP_APP_ID');
-const sampleLocation = getEnv('REACT_APP_SAMPLE_LOCATION');
 
-export function useGetSampleForecast() {
+export function useGetSampleForecast(location: string) {
   return useAxios({
     method: 'get',
     url: '/forecast',
     params: {
-      q: encodeURIComponent(sampleLocation),
+      q: encodeURIComponent(location),
       appid,
     },
   });

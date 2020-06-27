@@ -12,6 +12,10 @@ export type TForecastCityDto = {
 export type TForecastItemDto = {
   // Time of data forecasted, unix, UTC
   dt: number;
+  main: {
+    // Temperature in Kelvin
+    temp: number,
+  },
   weather: TForecastItemWeatherItemDto[];
   clouds: {
     // Cloudiness, %

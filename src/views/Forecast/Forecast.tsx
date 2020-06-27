@@ -1,49 +1,29 @@
-import styled from 'styled-components';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import useWeatherForecast from './state/useWeatherForecast';
 
 import { Flex, Box } from '../../atoms';
 
-import LocationAndDate from './components/LocationAndDate';
-import SelectedTimeStatus from './components/SelectedTimeStatus';
-import StatusIcon from './components/StatusIcon';
+import Fallback from './components/Fallback';
+import WeatherStatus from './components/WeatherStatus';
 import TimeScale from './components/TimeScale';
 
 export default function Forecast() {
   const forecast = useWeatherForecast();
 
   if (forecast.loading || forecast.error) {
-    // TODO: provide a proper handling
-    return <Fragment />;
+    return <Fallback />;
   }
 
   return (
-    <Flex column minWidth="200px" maxWidth="800px">
-      <Flex padding="1rem">
-        <StatusContainer>
-          <StatusIcon />
-          <SelectedTimeStatus />
-        </StatusContainer>
+    <Flex column width={1} alignItems="center">
+      <Box padding="96px">
+        <WeatherStatus {...forecast} />
+      </Box>
 
-        <InfoContainer>
-          <LocationAndDate />
-        </InfoContainer>
-      </Flex>
-
-      <TimeScaleContainer>
+      <Box>
         <TimeScale />
-      </TimeScaleContainer>
+      </Box>
     </Flex>
   );
 }
-
-const StatusContainer = styled.div`
-  display: flex;
-`;
-
-const InfoContainer = styled.div``;
-
-const TimeScaleContainer = styled.div`
-  padding: 1rem;
-`;
