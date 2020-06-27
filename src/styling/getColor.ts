@@ -1,8 +1,8 @@
 import { get } from 'lodash';
-import { TTheme } from '../types';
+import { Theme } from 'styled-system';
 
 type TStyledProps = {
-  theme: TTheme;
+  theme: Theme;
 };
 
 export default function getColor(colorSpec?: string) {
@@ -11,7 +11,7 @@ export default function getColor(colorSpec?: string) {
       return undefined;
     }
 
-    const color = get(props.theme.color, colorSpec);
+    const color = get(props.theme.colors, colorSpec);
 
     return color || colorSpec;
   };

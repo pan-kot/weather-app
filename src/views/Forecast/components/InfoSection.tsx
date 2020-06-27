@@ -14,9 +14,9 @@ export default function InfoSection({
   children,
 }: TInfoSectionProps) {
   return (
-    <Flex column>
-      <Flex height="40px" justifyContent="space-between">
-        <Box margin="0 20px 0 0">{headingLeft}</Box>
+    <Flex flexDirection="column">
+      <Flex height={40} justifyContent="space-between">
+        <Box marginRight={3}>{headingLeft}</Box>
 
         {headingRight ? <Box>{headingRight}</Box> : null}
       </Flex>

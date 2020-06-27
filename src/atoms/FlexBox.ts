@@ -1,23 +1,26 @@
 import styled from 'styled-components';
 
 import {
-  dimensionsStyle,
-  flexStyle,
-  spacingStyle,
-  TDimensionsStyle,
-  TSpacingStyle,
-  TFlexStyle,
-} from '../styling';
+  color,
+  ColorProps,
+  space,
+  SpaceProps,
+  layout,
+  LayoutProps,
+  flexbox,
+  FlexProps,
+} from 'styled-system';
 
-type TBoxProps = TDimensionsStyle & TSpacingStyle;
+type TBoxProps = ColorProps & SpaceProps & LayoutProps;
 
 export const Box = styled.div<TBoxProps>`
-  ${dimensionsStyle};
-  ${spacingStyle};
+  ${color};
+  ${space};
+  ${layout};
 `;
 
-type TFlexProps = TBoxProps & TFlexStyle;
+export const Flex = styled(Box)<any>`
+  display: flex;
 
-export const Flex = styled(Box)<TFlexProps>`
-  ${flexStyle};
+  ${flexbox};
 `;

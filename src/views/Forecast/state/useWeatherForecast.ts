@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { getHours } from 'date-fns';
 
 import { useGetSampleForecast } from '../../../api/api';
@@ -33,17 +33,19 @@ export default function useWeatherForecast(): TWeatherForecast {
   const [{ loading, error, data }] = useGetSampleForecast(location);
   const items = data?.list || [];
 
+  const dayForecast = useMemo(() => getDayForecast(items, date), [items, date]);
+
   useEffect(() => {
-    if (data) {
-      selectIndex(getCurrentTimeIndex(data.list));
+    if (dayForecast) {
+      selectIndex(getCurrentTimeIndex(dayForecast));
     }
-  }, [data]);
+  }, [dayForecast]);
 
-  const dayForecast = getDayForecast(items, date);
+  const selectedForecast = dayForecast[selectedIndex];
 
-  if (loading || error || dayForecast.length === 0) {
+  if (loading || error || !selectedForecast) {
     return {
-      loading,
+      loading: loading || !selectedForecast,
       error,
       location,
       date,
@@ -52,8 +54,6 @@ export default function useWeatherForecast(): TWeatherForecast {
       dayForecast,
     };
   }
-
-  const selectedForecast = dayForecast[selectedIndex];
 
   const summary = getForecastSummary(dayForecast);
 
@@ -86,9 +86,11 @@ function getTemperatures(forecast: TForecastItemDto[]) {
 function getCurrentTimeIndex(forecast: TForecastItemDto[]) {
   const currentHour = getHours(getToday());
 
-  return forecast.findIndex(
+  const index = forecast.findIndex(
     (item) => getHours(item.dt * 1000) - currentHour > 0
   );
+
+  return index !== -1 ? index : forecast.length - 1;
 }
 
 function getToday() {

@@ -16,13 +16,15 @@ export default function Forecast() {
   }
 
   return (
-    <Flex column width={1} alignItems="center">
-      <Box padding="96px">
+    <Flex width={1} flexDirection="column" alignItems="center">
+      <Box width={['32em', '44em', '56em']} padding={[2, 3, 4]}>
         <WeatherStatus {...forecast} />
       </Box>
 
-      <Box>
-        <TimeScale />
+      <Box marginTop={-3}>
+        <Box width={['32em', '44em', '56em']} padding={[2, 3, 4]}>
+          <TimeScale {...forecast} />
+        </Box>
       </Box>
     </Flex>
   );

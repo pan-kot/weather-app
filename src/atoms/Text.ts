@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { color, typography, ColorProps, TypographyProps } from 'styled-system';
 
-import { typographyStyle, TTypographyStyle } from '../styling';
+type TTextProps = ColorProps & TypographyProps;
 
-export const Text = styled.div<TTypographyStyle>`
-  ${typographyStyle};
+export const Text = styled.div<TTextProps>`
+  ${color};
+  ${typography};
 `;
