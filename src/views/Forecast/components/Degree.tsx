@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 
-import kalvinToCelcius from '../state/kalvinToCelcius';
+import kelvinToCelcius from '../state/kelvinToCelcius';
 
 type TDegreeProps = {
   temp: number;
 };
 
 export default function Degree({ temp }: TDegreeProps) {
-  return <Fragment>{kalvinToCelcius(temp)}°</Fragment>;
+  return <Fragment>{kelvinToCelcius(temp)}°</Fragment>;
 }

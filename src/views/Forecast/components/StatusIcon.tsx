@@ -2,8 +2,6 @@ import React from 'react';
 
 import { WeatherSun, WeatherCloud } from '../../../icons';
 
-import { TForecastItemDto } from '../../../api/types';
-
 import { CLOUDS_THRESHOLD } from '../state/constants';
 
 type TStatusIconProps = {
