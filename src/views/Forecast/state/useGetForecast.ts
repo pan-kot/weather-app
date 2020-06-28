@@ -12,25 +12,25 @@ export type TWeatherForecastGet =
   | TWeatherForecastGetError
   | TWeatherForecastGetLoaded;
 
-export type TWeatherForecastGetLoading = {
+type TWeatherForecastGetLoading = {
   loading: true;
   error: void;
   data: null;
 } & TWeatherForecastGetParams;
 
-export type TWeatherForecastGetError = {
+type TWeatherForecastGetError = {
   loading: false;
   error: AxiosError<any>;
   data: null;
 } & TWeatherForecastGetParams;
 
-export type TWeatherForecastGetLoaded = {
+type TWeatherForecastGetLoaded = {
   loading: false;
   error: void;
   data: TForecastResponse;
 } & TWeatherForecastGetParams;
 
-export type TWeatherForecastGetParams = {
+type TWeatherForecastGetParams = {
   location: string;
   setLocation(location: string): void;
   date: Date;

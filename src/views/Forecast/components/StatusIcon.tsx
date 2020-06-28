@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WeatherSun, WeatherCloud } from '../../../icons';
 
-import { CLOUDS_THRESHOLD } from '../state/constants';
+import { CLOUDS_THRESHOLD } from '../constants';
 
 type TStatusIconProps = {
   cloudiness: number;

@@ -8,6 +8,7 @@ import {
   layout,
   LayoutProps,
   flexbox,
+  FlexboxProps,
 } from 'styled-system';
 
 type TBoxProps = ColorProps & SpaceProps & LayoutProps;
@@ -18,7 +19,9 @@ export const Box = styled.div<TBoxProps>`
   ${layout};
 `;
 
-export const Flex = styled(Box)<any>`
+type TFlexProps = TBoxProps & FlexboxProps;
+
+export const Flex = styled(Box)<TFlexProps>`
   display: flex;
 
   ${flexbox};

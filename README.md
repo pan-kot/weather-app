@@ -1,3 +1,21 @@
+# Weather App
+
+The demo project to visualize the one-day weather from `https://samples.openweathermap.org/data/2.5`.
+
+It is implemented with the following libraries:
+
+- `react`, `create-react-app`
+- `typescript`
+- `styled-components`, `styled-system`
+- `date-fns`
+- `axios`, `axios-hooks`
+
+Since the sample weather endpoint respects neither date nor location inputs, the output always shows the weather for `2017-02-18`, `Altstadt`.
+
+The tests only cover a few transformations and those transformations or utils that are rather straightforward are not covered. Of course, in a real project, it might be necessary to cover them as well at least for regression.
+
+There are also no tests for presentational components since those are a subject of frequent change and test maintenance can be costly. It still makes sense to cover the atoms with some snapshot-testing, but the atoms used in the project have no special logic to be tested.
+
 ## Setup
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

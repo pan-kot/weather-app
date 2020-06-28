@@ -1,4 +1,6 @@
-export const DEFAULT_LOCATION = process.env.REACT_APP_DEFAULT_LOCATION || '';
+import { getEnv } from '../../util';
+
+export const DEFAULT_LOCATION = getEnv('REACT_APP_DEFAULT_LOCATION', '');
 
 /*
  * The sample forecast ednpoint does not really provide the actual data.

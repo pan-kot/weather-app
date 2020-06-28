@@ -28,7 +28,7 @@ describe('getMinMaxTemperatures', () => {
     expect(temperatures).toEqual([273.15, 273.15]);
   });
 
-  it('should return proper min and max', () => {
+  it('should return proper min and max values', () => {
     const forecast: TForecastItemDto[] = [
       createItem(5),
       createItem(4),
