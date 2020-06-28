@@ -8,7 +8,6 @@ import {
   layout,
   LayoutProps,
   flexbox,
-  FlexProps,
 } from 'styled-system';
 
 type TBoxProps = ColorProps & SpaceProps & LayoutProps;

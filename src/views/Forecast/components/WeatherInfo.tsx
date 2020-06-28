@@ -3,42 +3,36 @@ import { format as formatDate } from 'date-fns';
 
 import { Flex, Text } from '../../../atoms';
 
-import { TWeatherForecast } from '../state/useWeatherForecast';
+import { TWeatherForecastInfo } from '../types';
 
 import Degree from './Degree';
 import StatusIcon from './StatusIcon';
 import InfoSection from './InfoSection';
 
-export default function WeatherStatus(forecast: TWeatherForecast) {
-  const { location, date, selectedForecast: selected, summary } = forecast;
-
-  if (!selected || !summary) {
-    throw new Error('Invariant violation: forecast is not ready!');
-  }
-
+export default function WeatherInfo(info: TWeatherForecastInfo) {
   return (
     <Flex justifyContent="center" flexWrap="wrap">
       <Flex alignItems="center" flexGrow={1} padding={4}>
-        <StatusIcon cloudiness={selected.clouds.all} size="9em" />
+        <StatusIcon cloudiness={info.cloudiness} size="9em" />
       </Flex>
 
       <Flex alignItems="center" flexGrow={1} padding={4}>
         <InfoSection
           headingLeft={
             <Text color="fg-secondary" fontSize="1.5em">
-              Clear
+              {info.status}
             </Text>
           }
           headingRight={
             <Text color="fg-secondary" fontSize="1.5em">
-              <Degree temp={summary.maxTemp} /> /{' '}
-              <Degree temp={summary.minTemp} />
+              <Degree temp={info.temperature.celcius.max} /> /{' '}
+              <Degree temp={info.temperature.celcius.min} />
             </Text>
           }
         >
           <Flex alignItems="center" justifyContent="center">
             <Text color="fg-primary" fontSize="8em" fontWeight="bold">
-              <Degree temp={selected.main.temp} />
+              <Degree temp={info.temperature.celcius.selected} />
             </Text>
           </Flex>
         </InfoSection>
@@ -53,16 +47,16 @@ export default function WeatherStatus(forecast: TWeatherForecast) {
         <InfoSection
           headingLeft={
             <Text color="fg-secondary" fontSize="1.5em">
-              {location}
+              {info.city}
             </Text>
           }
         >
           <Flex flexDirection="column">
             <Text color="fg-primary" fontSize="2em" fontWeight="bold">
-              {formatDate(date, 'eeee')}
+              {formatDate(info.date, 'eeee')}
             </Text>
             <Text color="fg-primary" fontSize="2em" fontWeight="bold">
-              {formatDate(date, 'dd. MMMM')}
+              {formatDate(info.date, 'dd. MMMM')}
             </Text>
           </Flex>
         </InfoSection>

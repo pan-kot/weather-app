@@ -1,102 +1,51 @@
-import { AxiosError } from 'axios';
-import { useState, useMemo, useEffect } from 'react';
-import { getHours } from 'date-fns';
+/* eslint max-statements: off */
 
-import { useGetSampleForecast } from '../../../api/api';
-import { TForecastItemDto } from '../../../api/types';
+import { useState } from 'react';
 
-import getDayForecast from './getDayForecast';
-import { DEFAULT_LOCATION, FAKE_TODAY_DT } from './constants';
+import getForecastInfo from './transformers/getForecastInfo';
+import getForecastTimescale from './transformers/getForecastTimescale';
 
-export type TForecastSummary = {
-  minTemp: number;
-  maxTemp: number;
-};
+import {
+  TWeatherForecast,
+  TWeatherForecastRequestLoading,
+  TWeatherForecastRequestError,
+  TWeatherForecastRequestLoaded,
+} from '../types';
 
-export type TWeatherForecast = {
-  loading: boolean;
-  error?: AxiosError<any>;
-  location: string;
-  date: Date;
-  selectedIndex: number;
-  selectIndex(index: number): void;
-  dayForecast: TForecastItemDto[];
-  selectedForecast?: TForecastItemDto;
-  summary?: TForecastSummary;
-};
+import useGetForecast from './useGetForecast';
 
 export default function useWeatherForecast(): TWeatherForecast {
-  const [location] = useState(DEFAULT_LOCATION);
-  const [date] = useState(getFakeToday());
+  const { loading, error, data, date, location } = useGetForecast();
+
   const [selectedIndex, selectIndex] = useState(0);
 
-  const [{ loading, error, data }] = useGetSampleForecast(location);
-  const items = data?.list || [];
+  const rq = { loading, error, date, location };
 
-  const dayForecast = useMemo(() => getDayForecast(items, date), [items, date]);
+  if (loading) {
+    const request = rq as TWeatherForecastRequestLoading;
 
-  useEffect(() => {
-    if (dayForecast) {
-      selectIndex(getCurrentTimeIndex(dayForecast));
-    }
-  }, [dayForecast]);
-
-  const selectedForecast = dayForecast[selectedIndex];
-
-  if (loading || error || !selectedForecast) {
-    return {
-      loading: loading || !selectedForecast,
-      error,
-      location,
-      date,
-      selectedIndex,
-      selectIndex,
-      dayForecast,
-    };
+    return { request };
   }
 
-  const summary = getForecastSummary(dayForecast);
+  if (error) {
+    const request = rq as TWeatherForecastRequestError;
 
-  return {
-    loading,
-    error,
-    location,
-    date,
+    return { request };
+  }
+
+  if (!data) {
+    throw new Error('Invariant violation: no data');
+  }
+
+  const request = rq as TWeatherForecastRequestLoaded;
+
+  const timescale = {
+    items: getForecastTimescale(data, date),
     selectedIndex,
     selectIndex,
-    dayForecast,
-    selectedForecast,
-    summary,
   };
-}
 
-function getForecastSummary(forecast: TForecastItemDto[]) {
-  const templeratures = getTemperatures(forecast);
+  const info = getForecastInfo(data, date, selectedIndex);
 
-  return {
-    minTemp: templeratures.reduce((min, temp) => Math.min(min, temp)),
-    maxTemp: templeratures.reduce((max, temp) => Math.max(max, temp)),
-  };
-}
-
-function getTemperatures(forecast: TForecastItemDto[]) {
-  return forecast.map((it) => it.main.temp);
-}
-
-function getCurrentTimeIndex(forecast: TForecastItemDto[]) {
-  const currentHour = getHours(getToday());
-
-  const index = forecast.findIndex(
-    (item) => getHours(item.dt * 1000) - currentHour > 0
-  );
-
-  return index !== -1 ? index : forecast.length - 1;
-}
-
-function getToday() {
-  return new Date();
-}
-
-function getFakeToday() {
-  return new Date(FAKE_TODAY_DT * 1000);
+  return { request, timescale, info };
 }

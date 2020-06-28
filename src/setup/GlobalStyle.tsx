@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { getColor } from '../styling';
+import { getColor } from '../util';
 
 export default createGlobalStyle`
   body {

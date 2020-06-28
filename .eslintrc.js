@@ -76,6 +76,8 @@ module.exports = {
 
     'react/jsx-no-useless-fragment': 'off',
 
+    'react/jsx-props-no-spreading': 'off',
+
     // TypeScript
     '@typescript-eslint/explicit-function-return-type': 'off',
 
@@ -86,10 +88,12 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
   },
 
-  overrides: {
-    files: ['*.tsx'],
-    rules: {
-      'max-lines-per-function': ['warn', 100],
+  overrides: [
+    {
+      files: ['*.tsx'],
+      rules: {
+        'max-lines-per-function': ['warn', 100],
+      },
     },
-  },
+  ],
 };

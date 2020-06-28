@@ -2,23 +2,25 @@ import React from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 
-import { TForecastItemDto } from '../../../api/types';
 import { Flex, Text } from '../../../atoms';
 
-import { TWeatherForecast } from '../state/useWeatherForecast';
+import {
+  TWeatherForecastTimescale,
+  TWeatherForecastTimescaleItem,
+} from '../types';
 
 import Degree from './Degree';
 import StatusIcon from './StatusIcon';
 
 export default function TimeScale({
-  dayForecast,
+  items,
   selectIndex,
-}: TWeatherForecast) {
+}: TWeatherForecastTimescale) {
   return (
     <Flex overflowX="auto">
-      {dayForecast.map((item, index) => (
+      {items.map((item, index) => (
         <TimeScaleItem
-          key={item.dt}
+          key={index}
           item={item}
           onSelect={() => selectIndex(index)}
         />
@@ -28,7 +30,7 @@ export default function TimeScale({
 }
 
 type TTimeScaleProps = {
-  item: TForecastItemDto;
+  item: TWeatherForecastTimescaleItem;
   onSelect: () => void;
 };
 
@@ -38,17 +40,17 @@ function TimeScaleItem({ item, onSelect }: TTimeScaleProps) {
       <Flex flexDirection="column" justifyContent="center" padding={2}>
         <Flex margin={2} justifyContent="center">
           <Text color="fg-secondary" fontSize="1.5em">
-            {format(new Date(item.dt * 1000), 'HH:mm')}
+            {format(item.date, 'HH:mm')}
           </Text>
         </Flex>
 
         <Flex margin={2} justifyContent="center">
-          <StatusIcon cloudiness={item.clouds.all} size="4em" />
+          <StatusIcon cloudiness={item.cloudiness} size="4em" />
         </Flex>
 
         <Flex margin={2} justifyContent="center">
           <Text color="fg-primary" fontWeight="bold" fontSize="2.5em">
-            <Degree temp={item.main.temp} />
+            <Degree temp={item.temperature.celcius} />
           </Text>
         </Flex>
       </Flex>

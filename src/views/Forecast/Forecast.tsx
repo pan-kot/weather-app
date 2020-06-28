@@ -1,29 +1,32 @@
 import React from 'react';
 
-import useWeatherForecast from './state/useWeatherForecast';
-
 import { Flex, Box } from '../../atoms';
 
+import useWeatherForecast from './state/useWeatherForecast';
+import { TWeatherForecastLoaded } from './types';
+
 import Fallback from './components/Fallback';
-import WeatherStatus from './components/WeatherStatus';
+import WeatherInfo from './components/WeatherInfo';
 import TimeScale from './components/TimeScale';
 
 export default function Forecast() {
   const forecast = useWeatherForecast();
 
-  if (forecast.loading || forecast.error) {
+  if (forecast.request.loading || forecast.request.error) {
     return <Fallback />;
   }
+
+  const { info, timescale } = forecast as TWeatherForecastLoaded;
 
   return (
     <Flex width={1} flexDirection="column" alignItems="center">
       <Box width={['32em', '44em', '56em']} padding={[2, 3, 4]}>
-        <WeatherStatus {...forecast} />
+        <WeatherInfo {...info} />
       </Box>
 
       <Box marginTop={-3}>
         <Box width={['32em', '44em', '56em']} padding={[2, 3, 4]}>
-          <TimeScale {...forecast} />
+          <TimeScale {...timescale} />
         </Box>
       </Box>
     </Flex>
