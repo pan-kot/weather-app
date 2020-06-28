@@ -1,10 +1,11 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 
+import { dtToDate } from '../../../util';
 import { useGetSampleForecast } from '../../../api/api';
 import { TForecastResponse } from '../../../api/types';
 
-import { DEFAULT_LOCATION, FAKE_TODAY_DT } from './constants';
+import { DEFAULT_LOCATION, FAKE_TODAY_DT } from '../constants';
 
 export type TWeatherForecastGet =
   | TWeatherForecastGetLoading
@@ -64,5 +65,5 @@ export default function useGetForecast(): TWeatherForecastGet {
 }
 
 function getFakeToday() {
-  return new Date(FAKE_TODAY_DT * 1000);
+  return dtToDate(FAKE_TODAY_DT);
 }

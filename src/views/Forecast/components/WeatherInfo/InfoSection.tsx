@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Box } from '../../../atoms';
+import { Flex, Box } from '../../../../atoms';
 
 type TInfoSectionProps = {
   headingLeft: React.ReactNode;

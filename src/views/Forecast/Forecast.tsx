@@ -6,8 +6,8 @@ import useWeatherForecast from './state/useWeatherForecast';
 import { TWeatherForecastLoaded } from './types';
 
 import Fallback from './components/Fallback';
-import WeatherInfo from './components/WeatherInfo';
-import TimeScale from './components/TimeScale';
+import WeatherInfo from './components/WeatherInfo/WeatherInfo';
+import TimeScale from './components/TimeScale/TimeScale';
 
 export default function Forecast() {
   const forecast = useWeatherForecast();
